@@ -1,0 +1,20 @@
+[
+    {
+    "role_id": "R00001",
+    "role_name": "admin",
+    "statue": "active",
+    "create_time": "2020-06-30"
+    },
+    {
+    "role_id": "R00002",
+    "role_name": "driver",
+    "statue": "active",
+    "create_time": "2020-07-15"
+    },
+    {
+    "role_id": "R00003",
+    "role_name": "doctor",
+    "statue": "active",
+    "create_time": "2020-07-30"
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+    "site_id": "S00001",
+    "site_name": "site1",
+    "valid_flag": "true",
+    "latitude": "104.8",
+    "longitude": "92.3",
+    "create_time": "2020-06-30"
+    },
+    {
+    "site_id": "S00002",
+    "site_name": "site2",
+    "valid_flag": "true",
+    "latitude": "104.8",
+    "longitude": "72.3",
+    "create_time": "2020-07-15"
+    },
+    {
+    "site_id": "S00003",
+    "site_name": "site3",
+    "valid_flag": "true",
+    "latitude": "54.8",
+    "longitude": "82.3",
+    "create_time": "2020-07-30"
+    }
+]

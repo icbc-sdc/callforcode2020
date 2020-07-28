@@ -1,0 +1,26 @@
+[
+    {
+    "id": "T00001",
+    "material_name": "mask1",
+    "material_number": "100000",
+    "start_site_name": "site1",
+    "end_site_name": "site2",
+    "create_time": "2020-07-29"
+    },
+    {
+    "id": "T00002",
+    "material_name": "mask2",
+    "material_number": "200000",
+    "start_site_name": "site1",
+    "end_site_name": "site3",
+    "create_time": "2020-07-30"
+    },
+    {
+    "id": "T00003",
+    "material_name": "mask3",
+    "material_number": "400000",
+    "start_site_name": "site1",
+    "end_site_name": "site5",
+    "create_time": "2020-07-25"
+    }
+]

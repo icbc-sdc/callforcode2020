@@ -1,0 +1,23 @@
+[
+    {
+    "material_id": "M00001",
+    "material_name": "mask1",
+    "material_type": "masks",
+    "material_number": "100000",
+    "create_time": "2020-06-30"
+    },
+    {
+    "material_id": "M00002",
+    "material_name": "mask2",
+    "material_type": "masks",
+    "material_number": "300000",
+    "create_time": "2020-05-30"
+    },
+    {
+    "material_id": "M00003",
+    "material_name": "mask1",
+    "material_type": "masks",
+    "material_number": "500000",
+    "create_time": "2020-07-30"
+    }
+]
