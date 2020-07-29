@@ -9,20 +9,20 @@
           <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="id" label="ID" width="150">
             </el-table-column>
-            <el-table-column prop="material_name" label="MATERIAL_NAME" width="200">
+            <el-table-column prop="materialId" label="MATERIAL_ID" width="200">
             </el-table-column>
-            <el-table-column prop="material_number" label="MATERIAL_NUMBER" width="200">
+            <el-table-column prop="materialNumber" label="MATERIAL_NUMBER" width="200">
             </el-table-column>
-            <el-table-column prop="start_site_name" label="START_SITE_NAME" width="200">
+            <el-table-column prop="startSiteId" label="START_SITE_ID" width="200">
             </el-table-column>
-            <el-table-column prop="end_site_name" label="END_SITE_NAME" width="200">
+            <el-table-column prop="endSiteId" label="END_SITE_ID" width="200">
             </el-table-column>
-            <el-table-column prop="create_time" label="CREATE_TIME" min-width="200">
+            <el-table-column prop="createTime" label="CREATE_TIME" min-width="200">
             </el-table-column>
             <el-table-column fixed="right" label="option" width="100">
               <template slot-scope="scope">
-                  <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
-                  <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
+                      <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
+                      <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
 </template>
     </el-table-column>
   </el-table>
@@ -36,24 +36,21 @@
           </v-card-title>
           <v-card-text>
           <el-form ref="form" :model="selected" label-width="120px">
-            <el-form-item label="material_name">
-              <el-input v-model="selected.material_name"></el-input>
+            <el-form-item label="materialId">
+              <el-input v-model="selected.materialId"></el-input>
             </el-form-item>
-            <el-form-item label="material_number">
-              <el-input v-model="selected.material_number"></el-input>
+            <el-form-item label="materialNumber">
+              <el-input v-model="selected.materialNumber"></el-input>
             </el-form-item>
-            <el-form-item label="start_site_name">
-              <el-input v-model="selected.start_site_name"></el-input>
+            <el-form-item label="startSiteId">
+              <el-input v-model="selected.startSiteId"></el-input>
             </el-form-item>
-            <el-form-item label="end_site_name">
-              <el-input v-model="selected.end_site_name"></el-input>
-            </el-form-item>
-            <el-form-item label="create_time">
-              <el-input v-model="selected.create_time"></el-input>
+            <el-form-item label="endSiteId">
+              <el-input v-model="selected.endSiteId"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">confirm</el-button>
-              <el-button @click="onSubmit">cancel</el-button>
+              <el-button @click="dialog = false">cancel</el-button>
             </el-form-item>
           </el-form>
           </v-card-text>
@@ -64,53 +61,63 @@
 </template>
 
 <script>
-  
-  const transferData = require('@/mock_data/transfer.json');
-
   export default {
-    name: 'Transfer', // 物资管理
+    name: 'Transfer', // 物资转移
   
-    components: {
-    },
+    components: {},
   
     data: () => ({
-      cars: [],
+      id: '',
+      isEdit: false,
       dialog: false,
       selected: {
-          material_name: '',
-          material_number: '',
-          start_site_name: '',
-          end_site_name: '',
-          create_time: ''
-        },
-      tableData: transferData 
+        materialId: '',
+        materialNumber: '',
+        startSiteId: '',
+        endSiteId: ''
+      },
+      tableData: []
     }),
     computed: {},
   
-    created() {},
-  
-    mounted() {
+    created() {
+      debugger
+      this.handleQuery();
     },
   
-    methods: {
+    mounted() {},
   
+    methods: {
+      handleQuery() {
+        const url = '/icbc/hzyjs/transfer/query';
+        this.$axios.get(url).then(
+          response => {
+            this.tableData = response.data.data;
+          }
+        ).catch(
+          response => {
+            alert('Request failed!');
+          },
+        );
+      },
       handleAdd() {
+        this.isEdit = false;
         this.selected = {
-          material_name: '',
-          material_number: '',
-          start_site_name: '',
-          end_site_name: '',
-          create_time: ''
+          materialId: '',
+          materialNumber: '',
+          startSiteId: '',
+          endSiteId: ''
         };
         this.dialog = true;
       },
       handleClick(data) {
+        this.id = data.id;
+        this.isEdit = true;
         this.selected = {
-          material_name: data.material_name,
-          material_number: data.material_number,
-          start_site_name: data.start_site_name,
-          end_site_name: data.end_site_name,
-          create_time: data.create_time
+          materialId: data.materialId,
+          materialNumber: data.materialNumber,
+          startSiteId: data.startSiteId,
+          endSiteId: data.endSiteId
         };
         this.dialog = true;
       },
@@ -120,23 +127,59 @@
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Delete success!'
-          });
+          const url = '/icbc/hzyjs/transfer/delete/' + data.id;
+          this.$axios.get(url).then(
+            response => {
+              // 刷新列表
+              this.handleQuery();
+              this.$message({
+                type: 'success',
+                message: 'Delete success!'
+              });
+            }
+          ).catch(
+            response => {
+              alert('Request failed!');
+            },
+          );
         }).catch(() => {
           this.$message({
             type: 'info',
             message: 'Cancel success'
-          });          
+          });
         });
       },
       onSubmit() {
-        this.dialog = false;
+        let url = this.isEdit ? '/icbc/hzyjs/transfer/update' : '/icbc/hzyjs/transfer/insert';
+        this.$axios({
+          url: url,
+          method: "post",
+          data: {
+            id: this.id,
+            materialId: this.selected.materialId,
+            materialNumber: this.selected.materialNumber,
+            startSiteId: this.selected.startSiteId,
+            endSiteId: this.selected.endSiteId
+          }
+        }).then(
+          response => {
+            this.$message({
+              type: 'success',
+              message: 'Success!'
+            });
+            this.handleQuery();
+            this.dialog = false;
+          }
+        ).catch(
+          response => {
+            alert('Request failed!');
+          },
+        );
       }
     }
   };
 </script>
 
 <style>
+  
 </style>

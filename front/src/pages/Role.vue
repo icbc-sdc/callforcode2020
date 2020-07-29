@@ -7,18 +7,18 @@
       <v-row>
         <v-col cols="12">
           <el-table :data="tableData" border style="width: 100%">
-            <el-table-column fixed prop="role_id" label="ROLE_ID" width="150">
+            <el-table-column fixed prop="roleId" label="ROLE_ID" width="150">
             </el-table-column>
-            <el-table-column prop="role_name" label="ROLE_NAME" width="200">
+            <el-table-column prop="roleName" label="ROLE_NAME" width="200">
             </el-table-column>
             <el-table-column prop="statue" label="STATUE" width="200">
             </el-table-column>
-            <el-table-column prop="create_time" label="CREATE_TIME" min-width="200">
+            <el-table-column prop="createTime" label="CREATE_TIME" min-width="200">
             </el-table-column>
             <el-table-column fixed="right" label="option" width="100">
               <template slot-scope="scope">
-                  <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
-                  <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
+                    <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
+                    <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
 </template>
     </el-table-column>
   </el-table>
@@ -32,18 +32,15 @@
           </v-card-title>
           <v-card-text>
           <el-form ref="form" :model="selected" label-width="120px">
-            <el-form-item label="role_name">
-              <el-input v-model="selected.role_name"></el-input>
+            <el-form-item label="roleName">
+              <el-input v-model="selected.roleName"></el-input>
             </el-form-item>
             <el-form-item label="statue">
               <el-input v-model="selected.statue"></el-input>
             </el-form-item>
-            <el-form-item label="create_time">
-              <el-input v-model="selected.create_time"></el-input>
-            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">confirm</el-button>
-              <el-button @click="onSubmit">cancel</el-button>
+              <el-button @click="dialog = false">cancel</el-button>
             </el-form-item>
           </el-form>
           </v-card-text>
@@ -54,9 +51,6 @@
 </template>
 
 <script>
-  
-  const roleData = require('@/mock_data/role.json');
-
   export default {
     name: 'Role', // 角色管理
   
@@ -65,63 +59,112 @@
     },
   
     data: () => ({
-      cars: [],
+      id: '',
+      isEdit: false,
       dialog: false,
       selected: {
-          role_name: '',
-          statue: '',
-          create_time: ''
-        },
-      tableData: roleData 
+        roleName: '',
+        statue: ''
+      },
+      tableData: []
     }),
     computed: {},
   
-    created() {},
-  
-    mounted() {
+    created() {
+      this.handleQuery();
     },
+  
+    mounted() {},
   
     methods: {
   
+      handleQuery() {
+        const url = '/icbc/hzyjs/role/query';
+        this.$axios.get(url).then(
+          response => {
+            this.tableData = response.data.data;
+          }
+        ).catch(
+          response => {
+            alert('Request failed!');
+          },
+        );
+      },
       handleAdd() {
+        this.isEdit = false;
         this.selected = {
-          role_name: '',
-          statue: '',
-          create_time: ''
+          roleName: '',
+          statue: ''
         };
         this.dialog = true;
       },
       handleClick(data) {
+        this.id = data.roleId;
+        this.isEdit = true;
         this.selected = {
-          role_name: data.role_name,
-          statue: data.statue,
-          create_time: data.create_time
+          roleName: data.roleName,
+          statue: data.statue
         };
         this.dialog = true;
       },
       handleDelete(data) {
+        let _this = this;
         this.$confirm('Are you sure to delete?', 'Confirm', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Delete success!'
-          });
+          const url = '/icbc/hzyjs/role/delete/' + data.roleId;
+          this.$axios.get(url).then(
+              response => {
+                // 刷新列表
+                this.handleQuery();
+                this.$message({
+                  type: 'success',
+                  message: 'Delete success!'
+                });
+              }
+            ).catch(
+              response => {
+                alert('Request failed!');
+              },
+            );
         }).catch(() => {
           this.$message({
             type: 'info',
             message: 'Cancel success'
-          });          
+          });
         });
       },
       onSubmit() {
-        this.dialog = false;
+        let url = this.isEdit ? '/icbc/hzyjs/role/update' : '/icbc/hzyjs/role/insert' ;
+        this.$axios({
+          url: url,
+          method: "post",
+          data: {
+            roleId: this.roleId,
+            roleName: this.selected.roleName,
+            statue: this.selected.statue
+          }
+        }).then(
+          response => {
+            this.$message({
+              type: 'success',
+              message: 'Success!'
+            });
+            this.handleQuery();
+            this.dialog = false;
+          }
+        ).catch(
+          response => {
+            alert('Request failed!');
+          },
+        );
       }
     }
   };
 </script>
 
 <style>
+  
 </style>

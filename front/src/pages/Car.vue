@@ -2,23 +2,25 @@
   <v-content>
     <v-container>
       <v-row style="padding: 12px;">
-        <el-button type="primary" @click="handleAdd()">Add site</el-button>
+        <el-button type="primary" @click="handleAdd()">Add car</el-button>
       </v-row>
       <v-row>
         <v-col cols="12">
           <el-table :data="tableData" border style="width: 100%">
-            <el-table-column fixed prop="siteId" label="SITE_ID" width="150">
+            <el-table-column prop="carId" label="CAR_ID" width="150">
             </el-table-column>
-            <el-table-column prop="siteName" label="SITE_NAME" width="200">
+            <el-table-column prop="carNumber" label="CAR_NUMBER" width="150">
             </el-table-column>
-            <el-table-column prop="validFlag" label="VALID" width="200">
+            <el-table-column prop="carOwner" label="CAR_OWNER" width="150">
+            </el-table-column>
+            <el-table-column prop="carOwnerPhone" label="ROLE_NAME" width="150">
             </el-table-column>
             <el-table-column prop="createTime" label="CREATE_TIME" min-width="200">
             </el-table-column>
             <el-table-column fixed="right" label="option" width="100">
               <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
-                    <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
+                            <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
+                            <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
 </template>
     </el-table-column>
   </el-table>
@@ -32,11 +34,14 @@
           </v-card-title>
           <v-card-text>
           <el-form ref="form" :model="selected" label-width="120px">
-            <el-form-item label="siteName">
-              <el-input v-model="selected.siteName"></el-input>
+            <el-form-item label="carNumber">
+              <el-input v-model="selected.carNumber"></el-input>
             </el-form-item>
-            <el-form-item label="validFlag">
-              <el-input v-model="selected.validFlag"></el-input>
+            <el-form-item label="carOwner">
+              <el-input v-model="selected.carOwner"></el-input>
+            </el-form-item>
+            <el-form-item label="phone">
+              <el-input v-model="selected.carOwnerPhone"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">confirm</el-button>
@@ -52,7 +57,7 @@
 
 <script>
   export default {
-    name: 'Site', // 站点管理
+    name: 'Car', // 车辆管理
   
     components: {},
   
@@ -61,8 +66,9 @@
       isEdit: false,
       dialog: false,
       selected: {
-        siteName: '',
-        validFlag: ''
+        carNumber: '',
+        carOwner: '',
+        carOwnerPhone: ''
       },
       tableData: []
     }),
@@ -76,7 +82,7 @@
   
     methods: {
       handleQuery() {
-        const url = '/icbc/hzyjs/site/query';
+        const url = '/icbc/hzyjs/car/query';
         this.$axios.get(url).then(
           response => {
             this.tableData = response.data.data;
@@ -90,8 +96,9 @@
       handleAdd() {
         this.isEdit = false;
         this.selected = {
-          siteName: '',
-          validFlag: ''
+          carNumber: '',
+          carOwner: '',
+          carOwnerPhone: ''
         };
         this.dialog = true;
       },
@@ -99,8 +106,9 @@
         this.id = data.siteId;
         this.isEdit = true;
         this.selected = {
-          siteName: data.siteName,
-          validFlag: data.validFlag
+          carNumber: data.carNumber,
+          carOwner: data.carOwner,
+          carOwnerPhone: data.carOwnerPhone
         };
         this.dialog = true;
       },
@@ -111,21 +119,21 @@
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          const url = '/icbc/hzyjs/site/delete/' + data.siteId;
+          const url = '/icbc/hzyjs/car/delete/' + data.carId;
           this.$axios.get(url).then(
-              response => {
-                // 刷新列表
-                this.handleQuery();
-                this.$message({
-                  type: 'success',
-                  message: 'Delete success!'
-                });
-              }
-            ).catch(
-              response => {
-                alert('Request failed!');
-              },
-            );
+            response => {
+              // 刷新列表
+              this.handleQuery();
+              this.$message({
+                type: 'success',
+                message: 'Delete success!'
+              });
+            }
+          ).catch(
+            response => {
+              alert('Request failed!');
+            },
+          );
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -134,14 +142,15 @@
         });
       },
       onSubmit() {
-        let url = this.isEdit ? '/icbc/hzyjs/site/update' : '/icbc/hzyjs/site/insert' ;
+        let url = this.isEdit ? '/icbc/hzyjs/car/update' : '/icbc/hzyjs/car/insert';
         this.$axios({
           url: url,
           method: "post",
           data: {
-            siteId: this.siteId,
-            siteName: this.selected.siteName,
-            validFlag: this.selected.validFlag
+            carId: this.carId,
+            carNumber: data.carNumber,
+            carOwner: data.carOwner,
+            carOwnerPhone: data.carOwnerPhone
           }
         }).then(
           response => {

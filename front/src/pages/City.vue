@@ -2,23 +2,27 @@
   <v-content>
     <v-container>
       <v-row style="padding: 12px;">
-        <el-button type="primary" @click="handleAdd()">Add site</el-button>
+        <el-button type="primary" @click="handleAdd()">Add city</el-button>
       </v-row>
       <v-row>
         <v-col cols="12">
           <el-table :data="tableData" border style="width: 100%">
-            <el-table-column fixed prop="siteId" label="SITE_ID" width="150">
+            <el-table-column prop="cityId" label="CITY_ID" width="150">
             </el-table-column>
-            <el-table-column prop="siteName" label="SITE_NAME" width="200">
+            <el-table-column prop="cityName" label="CITY_NAME" width="150">
             </el-table-column>
-            <el-table-column prop="validFlag" label="VALID" width="200">
+            <el-table-column prop="cityLatitude" label="CITY_LATITUDE" width="150">
+            </el-table-column>
+            <el-table-column prop="cityLongtitude" label="CITY_LONGTITUDE" width="150">
+            </el-table-column>
+            <el-table-column prop="cityStatus" label="CITY_STATUS" width="150">
             </el-table-column>
             <el-table-column prop="createTime" label="CREATE_TIME" min-width="200">
             </el-table-column>
             <el-table-column fixed="right" label="option" width="100">
               <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
-                    <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
+                            <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
+                            <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
 </template>
     </el-table-column>
   </el-table>
@@ -32,11 +36,17 @@
           </v-card-title>
           <v-card-text>
           <el-form ref="form" :model="selected" label-width="120px">
-            <el-form-item label="siteName">
-              <el-input v-model="selected.siteName"></el-input>
+            <el-form-item label="cityName">
+              <el-input v-model="selected.cityName"></el-input>
             </el-form-item>
-            <el-form-item label="validFlag">
-              <el-input v-model="selected.validFlag"></el-input>
+            <el-form-item label="cityLatitude">
+              <el-input v-model="selected.cityLatitude"></el-input>
+            </el-form-item>
+            <el-form-item label="cityLongtitude">
+              <el-input v-model="selected.cityLongtitude"></el-input>
+            </el-form-item>
+            <el-form-item label="cityStatus">
+              <el-input v-model="selected.cityStatus"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">confirm</el-button>
@@ -51,18 +61,23 @@
 </template>
 
 <script>
-  export default {
-    name: 'Site', // 站点管理
   
-    components: {},
+  export default {
+    name: 'City', // 城市管理
+  
+    components: {
+      // LeafletMap
+    },
   
     data: () => ({
       id: '',
       isEdit: false,
       dialog: false,
       selected: {
-        siteName: '',
-        validFlag: ''
+        cityName: '',
+        cityLatitude: '',
+        cityLongtitude: '',
+        cityStatus: ''
       },
       tableData: []
     }),
@@ -71,12 +86,13 @@
     created() {
       this.handleQuery();
     },
-  
+
     mounted() {},
   
     methods: {
+  
       handleQuery() {
-        const url = '/icbc/hzyjs/site/query';
+        const url = '/icbc/hzyjs/city/query';
         this.$axios.get(url).then(
           response => {
             this.tableData = response.data.data;
@@ -90,17 +106,21 @@
       handleAdd() {
         this.isEdit = false;
         this.selected = {
-          siteName: '',
-          validFlag: ''
+          cityName: '',
+          cityLatitude: '',
+          cityLongtitude: '',
+          cityStatus: ''
         };
         this.dialog = true;
       },
       handleClick(data) {
-        this.id = data.siteId;
+        this.id = data.cityId;
         this.isEdit = true;
         this.selected = {
-          siteName: data.siteName,
-          validFlag: data.validFlag
+          cityName: data.cityName,
+          cityLatitude: data.cityLatitude,
+          cityLongtitude: data.cityLongtitude,
+          cityStatus: data.cityStatus
         };
         this.dialog = true;
       },
@@ -111,7 +131,7 @@
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          const url = '/icbc/hzyjs/site/delete/' + data.siteId;
+          const url = '/icbc/hzyjs/city/delete/' + data.cityId;
           this.$axios.get(url).then(
               response => {
                 // 刷新列表
@@ -139,9 +159,11 @@
           url: url,
           method: "post",
           data: {
-            siteId: this.siteId,
-            siteName: this.selected.siteName,
-            validFlag: this.selected.validFlag
+            cityId: this.cityId,
+            cityName: this.selected.cityName,
+            cityLatitude: this.selected.cityLatitude,
+            cityLongtitude: this.selected.cityLongtitude,
+            cityStatus: this.selected.cityStatus
           }
         }).then(
           response => {

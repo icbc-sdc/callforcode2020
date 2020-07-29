@@ -39,6 +39,14 @@ export const routes = [
   {
     path: '/transfer',
     component: () => import('@/pages/Transfer')
+  },
+  {
+    path: '/car',
+    component: () => import('@/pages/Car')
+  },
+  {
+    path: '/city',
+    component: () => import('@/pages/City')
   }
   
   

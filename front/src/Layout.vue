@@ -118,6 +118,24 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
+          <v-list-item @click="nav('car')" key="car" link>
+            <v-list-item-icon>
+              <v-icon style="margin-right:20px;">mdi-car</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Car</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-list-item @click="nav('city')" key="city" link>
+            <v-list-item-icon>
+              <v-icon style="margin-right:20px;">mdi-city</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>City</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
           <!-- <v-list-item @click="nav('delivery')" key="delivery" link>
             <v-list-item-icon>
               <v-icon style="margin-right:20px;">mdi-umbrella</v-icon>

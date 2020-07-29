@@ -13,6 +13,12 @@ import router from './router';
 import Layout from './Layout.vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import Axios from 'axios'
+
+Vue.prototype.$axios = Axios;
+Axios.defaults.baseURL = '/api'; 
+// Axios.defaults.baseURL = 'http://localhost:9080';
+Axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // this part resolve an issue where the markers would not appear
 delete Icon.Default.prototype._getIconUrl;
