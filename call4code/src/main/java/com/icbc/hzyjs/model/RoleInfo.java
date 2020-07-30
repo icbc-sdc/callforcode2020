@@ -13,9 +13,10 @@ import java.sql.Timestamp;
 public class RoleInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ROLE_INFO")
+    @SequenceGenerator(sequenceName = "SEQ_ROLE_INFO", allocationSize = 1, name = "SEQ_ROLE_INFO")
     @Column(name = "role_id")
-    private String roleId;
+    private int roleId;
 
     @Column(name = "role_name")
     private String roleName;

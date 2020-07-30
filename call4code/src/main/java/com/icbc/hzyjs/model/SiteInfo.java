@@ -13,9 +13,10 @@ import java.sql.Timestamp;
 public class SiteInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_SITE_INFO")
+    @SequenceGenerator(sequenceName = "SEQ_SITE_INFO", allocationSize = 1, name = "SEQ_SITE_INFO")
     @Column(name = "site_id")
-    private String siteId;
+    private int siteId;
 
     @Column(name = "site_name")
     private String siteName;

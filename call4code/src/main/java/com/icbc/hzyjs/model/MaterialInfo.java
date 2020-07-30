@@ -13,9 +13,10 @@ import java.sql.Timestamp;
 public class MaterialInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MATERIAL_INFO")
+    @SequenceGenerator(sequenceName = "SEQ_MATERIAL_INFO", allocationSize = 1, name = "SEQ_MATERIAL_INFO")
     @Column(name = "material_id")
-    private String materialId;
+    private int materialId;
 
     @Column(name = "material_name")
     private String materialName;
@@ -24,7 +25,7 @@ public class MaterialInfo {
     private String materialType;
 
     @Column(name = "material_number")
-    private String materialNumber;
+    private int materialNumber;
 
     @Column(name = "measure_unit")
     private String measureUnit;
