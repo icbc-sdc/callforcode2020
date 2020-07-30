@@ -148,9 +148,9 @@
           method: "post",
           data: {
             carId: this.id,
-            carNumber: data.carNumber,
-            carOwner: data.carOwner,
-            carOwnerPhone: data.carOwnerPhone
+            carNumber: this.selected.carNumber,
+            carOwner: this.selected.carOwner,
+            carOwnerPhone: this.selected.carOwnerPhone
           }
         }).then(
           response => {

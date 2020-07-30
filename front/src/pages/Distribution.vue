@@ -11,44 +11,26 @@
 </template>
 
 <script>
-  /* eslint-disable */
-  // import LeafletMap from '@/components/Map.vue';
-  // import API from '@/API';
   import tt from '@tomtom-international/web-sdk-maps';
   import ttServices from '@tomtom-international/web-sdk-services';
-  const avoidAreas = require('@/mock_data/areas.json');
+  const distribution = require('@/mock_data/distribution.json');
   
   export default {
-    name: 'Delivery',
+    name: 'Distribution', // 物资分发点
   
-    components: {
-      // LeafletMap
-    },
-  
-    data: () => ({
-      cars: [],
-      dialog: false,
-      selected: {},
-      geojson: [],
-      avoidAreas: avoidAreas
-  
-    }),
+    components: {},
+    data: () => ({}),
     computed: {},
-  
     created() {},
   
     mounted() {
       let _this = this;
-      // TODO 获取数据
-      // this.cars = API.getCars();
-      // console.log(cars.length);
       const fff = function() {
         const nav = new tt.NavigationControl({});
         this.addControl(nav, 'bottom-right');
         this.addControl(new tt.FullscreenControl());
         this.flyTo({
-          center: ['-79.501865', '40.110215'],
-          // center: ['37', '-87'],
+          center: ['-96.501865', '40.110215'],
           duration: 500
         });
       };
@@ -56,151 +38,33 @@
         key: '8OUZge16IwGa40HT7R6UX5AG71idTtA7',
         container: 'tomtommap',
         style: 'tomtom://vector/1/basic-night',
-        zoom: 8,
-        // center: ['-8.501865', '40.110215'],
-        center: ['-79.501865', '40.110215'],
-        // center: [37, -87],
+        zoom: 3.5,
+        center: ['-96.501865', '40.110215'],
         initialized: fff.bind(this)
       });
       tomtomMap.addControl(new tt.FullscreenControl());
   
       tomtomMap.on('load', function() {
-        calculateRoute(_this);
-        const popup = new tt.Popup({
-          offset: 30
-        }).setHTML('<h3>End of delivery!</h3>');
   
-        let geoJsonData = []
-        for (let i = 0; i < _this.avoidAreas.length; i++) {
-          let element = _this.avoidAreas[i];
-          geoJsonData.push([
-            [element.southWestCorner.longitude,element.southWestCorner.latitude],
-            [element.northEastCorner.longitude,element.southWestCorner.latitude],
-            [element.northEastCorner.longitude,element.northEastCorner.latitude],
-            [element.southWestCorner.longitude,element.northEastCorner.latitude],
-            [element.southWestCorner.longitude,element.southWestCorner.latitude]
-          ])
-        }
-        const marker = document.createElement('div');
-        const innerElement = document.createElement('div');
+        for (let i = 0; i < distribution.length; i++) {
+          const marker = document.createElement('div');
+          const innerElement = document.createElement('div');
   
-        marker.className = 'xxx-route-marker';
-        innerElement.className = `icon tt-icon -white -start xxxxxx`;
-        marker.appendChild(innerElement);
-        const mk = new tt.Marker({
-            element: marker
-          })
-          .setPopup(popup)
-          .setLngLat(['-78.501865', '40.010215'])
-          .addTo(tomtomMap);
-        mk.on('load', function() {
-          mk.on('click', () => {});
-        });
-  
-        const marker2 = document.createElement('div');
-        const innerElement2 = document.createElement('div');
-        innerElement2.className = `icon tt-icon -white -start yyyyyy`;
-        marker2.appendChild(innerElement2);
-        const mk2 = new tt.Marker({
-            element: marker2
-          })
-          .setLngLat(['-80.423538', '40.208555'])
-          .addTo(tomtomMap);
-  
-  
-        for (let i = 0; i < geoJsonData.length; i++) {
-          // 绘制避开区域
-          let areaPolygon = {
-            "type": "Feature",
-            "properties": {},
-            "geometry": {
-              "type": "Polygon",
-              "coordinates": [geoJsonData[i]]
-            }
-          }
-  
-          tomtomMap.addLayer({
-            id: 'avoid' + i,
-            type: 'fill',
-            source: {
-              type: 'geojson',
-              data: areaPolygon
-            },
-            paint: {
-              'fill-color': '#2eaafc', //'#2eaafc',
-              'fill-opacity': 0.5
-            }
-          });
-          tomtomMap.addLayer({
-            id: 'avoid' + i + '-border',
-            type: 'line',
-            source: {
-              type: 'geojson',
-              data: areaPolygon
-            },
-            paint: {
-              'line-color': '#2eaafc',
-              'line-width': 2
-            }
-          });
+          marker.className = 'xxx-route-marker';
+          innerElement.className = `icon tt-icon -white -start xxxxxx`;
+          marker.appendChild(innerElement);
+          const mk = new tt.Marker({
+              element: marker
+            })
+            .setLngLat(distribution[i])
+            .addTo(tomtomMap);
   
         }
       });
   
-      const findFirstBuildingLayerId = function() {
-        const layers1 = tomtomMap.getStyle().layers;
-        let rst;
-        Object.keys(layers1).forEach(index => {
-          if (layers1[index].type === 'fill-extrusion') {
-            rst = layers1[index].id;
-          }
-        });
-        return rst;
-      };
-      const calculateRoute = function(_this) {
-        if (tomtomMap.getLayer('route')) {
-          tomtomMap.removeLayer('route');
-          tomtomMap.removeSource('route');
-        }
-  
-        // geojson
-  
-        ttServices.services
-          .calculateRoute({
-            key: '8OUZge16IwGa40HT7R6UX5AG71idTtA7',
-            traffic: false,
-            locations: '-78.501865,40.010215:-80.423538,40.208555',
-            avoidAreas: _this.avoidAreas
-            // locations: '37, -87:36.92, -87.2'
-          })
-          .go()
-          .then(response => {
-            const geojson = response.toGeoJson();
-            tomtomMap.addLayer({
-                id: 'route',
-                type: 'line',
-                source: {
-                  type: 'geojson',
-                  data: geojson
-                },
-                paint: {
-                  'line-color': '#2faaff',
-                  'line-width': 8
-                }
-              },
-              findFirstBuildingLayerId()
-            );
-          })
-          .catch(() => {});
-      };
     },
   
-    methods: {
-      // viewCarData(location) {
-      //   this.selected = location;
-      //   this.dialog = true;
-      // }
-    }
+    methods: {}
   };
 </script>
 

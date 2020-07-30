@@ -64,15 +64,15 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <!-- <v-list-item @click="nav('delivery')" key="delivery" link>
+          <v-list-item @click="nav('distribution')" key="distribution" link>
             <v-list-item-icon>
-              <v-icon style="margin-right:20px;">mdi-truck-delivery</v-icon>
+              <v-icon style="margin-right:20px;">mdi-medical-bag</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Vehicle</v-list-item-title>
+              <v-list-item-title>Distribution</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-divider></v-divider> -->
+          <v-divider></v-divider>
           <v-list-item @click="nav('user')" key="user" link>
             <v-list-item-icon>
               <v-icon style="margin-right:20px;">mdi-account-edit</v-icon>

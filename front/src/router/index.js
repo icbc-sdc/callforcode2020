@@ -17,6 +17,10 @@ export const routes = [
     component: () => import('@/pages/Delivery')
   },
   {
+    path: '/distribution',
+    component: () => import('@/pages/Distribution')
+  },
+  {
     path: '/navigation',
     component: () => import('@/pages/Navigation')
   },
