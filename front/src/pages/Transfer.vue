@@ -81,7 +81,6 @@
     computed: {},
   
     created() {
-      debugger
       this.handleQuery();
     },
   

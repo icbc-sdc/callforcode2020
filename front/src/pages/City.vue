@@ -159,7 +159,7 @@
           url: url,
           method: "post",
           data: {
-            cityId: this.cityId,
+            cityId: this.id,
             cityName: this.selected.cityName,
             cityLatitude: this.selected.cityLatitude,
             cityLongtitude: this.selected.cityLongtitude,

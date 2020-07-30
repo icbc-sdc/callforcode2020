@@ -13,12 +13,16 @@
             </el-table-column>
             <el-table-column prop="validFlag" label="VALID" width="200">
             </el-table-column>
+            <el-table-column prop="siteLatitude" label="SITE_LATITUDE" width="150">
+            </el-table-column>
+            <el-table-column prop="siteLongtitude" label="SITE_LONGTITUDE" width="150">
+            </el-table-column>
             <el-table-column prop="createTime" label="CREATE_TIME" min-width="200">
             </el-table-column>
             <el-table-column fixed="right" label="option" width="100">
               <template slot-scope="scope">
-                    <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
-                    <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
+                      <el-button @click="handleClick(scope.row)" type="text" size="small">edit</el-button>
+                      <el-button @click="handleDelete(scope.row)" type="text" size="small">delete</el-button>
 </template>
     </el-table-column>
   </el-table>
@@ -37,6 +41,12 @@
             </el-form-item>
             <el-form-item label="validFlag">
               <el-input v-model="selected.validFlag"></el-input>
+            </el-form-item>
+            <el-form-item label="siteLatitude">
+              <el-input v-model="selected.siteLatitude"></el-input>
+            </el-form-item>
+            <el-form-item label="siteLongtitude">
+              <el-input v-model="selected.siteLongtitude"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">confirm</el-button>
@@ -62,7 +72,9 @@
       dialog: false,
       selected: {
         siteName: '',
-        validFlag: ''
+        validFlag: '',
+        siteLatitude: '',
+        siteLongtitude: ''
       },
       tableData: []
     }),
@@ -91,7 +103,9 @@
         this.isEdit = false;
         this.selected = {
           siteName: '',
-          validFlag: ''
+          validFlag: '',
+          siteLatitude: '',
+          siteLongtitude: ''
         };
         this.dialog = true;
       },
@@ -100,7 +114,9 @@
         this.isEdit = true;
         this.selected = {
           siteName: data.siteName,
-          validFlag: data.validFlag
+          validFlag: data.validFlag,
+          siteLatitude: '',
+          siteLongtitude: ''
         };
         this.dialog = true;
       },
@@ -113,19 +129,19 @@
         }).then(() => {
           const url = '/icbc/hzyjs/site/delete/' + data.siteId;
           this.$axios.get(url).then(
-              response => {
-                // 刷新列表
-                this.handleQuery();
-                this.$message({
-                  type: 'success',
-                  message: 'Delete success!'
-                });
-              }
-            ).catch(
-              response => {
-                alert('Request failed!');
-              },
-            );
+            response => {
+              // 刷新列表
+              this.handleQuery();
+              this.$message({
+                type: 'success',
+                message: 'Delete success!'
+              });
+            }
+          ).catch(
+            response => {
+              alert('Request failed!');
+            },
+          );
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -134,14 +150,16 @@
         });
       },
       onSubmit() {
-        let url = this.isEdit ? '/icbc/hzyjs/site/update' : '/icbc/hzyjs/site/insert' ;
+        let url = this.isEdit ? '/icbc/hzyjs/site/update' : '/icbc/hzyjs/site/insert';
         this.$axios({
           url: url,
           method: "post",
           data: {
-            siteId: this.siteId,
+            siteId: this.id,
             siteName: this.selected.siteName,
-            validFlag: this.selected.validFlag
+            validFlag: this.selected.validFlag,
+            siteLatitude: '',
+            siteLongtitude: ''
           }
         }).then(
           response => {

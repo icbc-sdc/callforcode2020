@@ -1,0 +1,19 @@
+[{
+    "southWestCorner": {
+      "latitude": 40.002150,
+      "longitude": -80.001865
+    },
+    "northEastCorner": {
+      "latitude": 40.218555,
+      "longitude": -79.823538
+    }
+  },{
+    "southWestCorner": {
+      "latitude": 40.302150,
+      "longitude": -79.401865
+    },
+    "northEastCorner": {
+      "latitude": 40.518555,
+      "longitude": -79.223538
+    }
+  }]

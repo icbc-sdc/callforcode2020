@@ -11,7 +11,7 @@
             </el-table-column>
             <el-table-column prop="roleName" label="ROLE_NAME" width="200">
             </el-table-column>
-            <el-table-column prop="statue" label="STATUE" width="200">
+            <el-table-column prop="status" label="STATUS" width="200">
             </el-table-column>
             <el-table-column prop="createTime" label="CREATE_TIME" min-width="200">
             </el-table-column>
@@ -35,8 +35,8 @@
             <el-form-item label="roleName">
               <el-input v-model="selected.roleName"></el-input>
             </el-form-item>
-            <el-form-item label="statue">
-              <el-input v-model="selected.statue"></el-input>
+            <el-form-item label="status">
+              <el-input v-model="selected.status"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">confirm</el-button>
@@ -64,7 +64,7 @@
       dialog: false,
       selected: {
         roleName: '',
-        statue: ''
+        status: ''
       },
       tableData: []
     }),
@@ -94,7 +94,7 @@
         this.isEdit = false;
         this.selected = {
           roleName: '',
-          statue: ''
+          status: ''
         };
         this.dialog = true;
       },
@@ -103,7 +103,7 @@
         this.isEdit = true;
         this.selected = {
           roleName: data.roleName,
-          statue: data.statue
+          status: data.status
         };
         this.dialog = true;
       },
@@ -142,9 +142,9 @@
           url: url,
           method: "post",
           data: {
-            roleId: this.roleId,
+            roleId: this.id,
             roleName: this.selected.roleName,
-            statue: this.selected.statue
+            status: this.selected.status
           }
         }).then(
           response => {

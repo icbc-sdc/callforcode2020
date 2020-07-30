@@ -148,7 +148,7 @@
           url: url,
           method: "post",
           data: {
-            materialId: this.materialId,
+            materialId: this.id,
             materialName: this.selected.materialName,
             materialType: this.selected.materialType,
             materialNumber: this.selected.materialNumber

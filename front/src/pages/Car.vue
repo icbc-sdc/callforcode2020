@@ -147,7 +147,7 @@
           url: url,
           method: "post",
           data: {
-            carId: this.carId,
+            carId: this.id,
             carNumber: data.carNumber,
             carOwner: data.carOwner,
             carOwnerPhone: data.carOwnerPhone
