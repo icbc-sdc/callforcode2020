@@ -1,4 +1,5 @@
 # WARM WIND
+
 一、项目说明：
 
 warm wind项目聚焦于如何在传染疫情发生后，救援物资能最快速准确地发送给被救助对象，并确保在救援物资领取过程中人员被感染的概率降到最低。
@@ -37,7 +38,15 @@ warm wind项目主要有两部分组成：门户和算法模块。
 
 oracle数据库的镜像地址为：us.icr.io/warmwind/kevin:202007301502
 
-warm wind  web的镜像地址为：us.icr.io/warmwind/
+warm wind  web的镜像地址为：us.icr.io/warmwind-java/warmwind:202007311637
+
+
+
+
+
+
+
+
 
 
 
