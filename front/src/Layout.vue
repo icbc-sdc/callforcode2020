@@ -5,7 +5,7 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
         <v-toolbar-title>
           <span v-show="!$vuetify.breakpoint.smAndUp">CFC</span>
-          <span v-show="$vuetify.breakpoint.smAndUp">GALS(The Global Aid Logistics System)</span>
+          <span v-show="$vuetify.breakpoint.smAndUp">WARM WIND</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-tooltip left :dark="isDarkTheme">
