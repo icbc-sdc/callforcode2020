@@ -18,15 +18,16 @@ import java.sql.Timestamp;
 public class MaterialTransferInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MATERIAL_TRANSFER_INFO")
+    @SequenceGenerator(sequenceName = "SEQ_MATERIAL_TRANSFER_INFO", allocationSize = 1, name = "SEQ_MATERIAL_TRANSFER_INFO")
     @Column(name = "id")
-    private String id;
+    private int id;
 
     @Column(name = "material_id")
-    private String materialId;
+    private int materialId;
 
     @Column(name = "material_number")
-    private String materialNumber;
+    private int materialNumber;
 
     @Column(name = "start_site_id")
     private String startSiteId;

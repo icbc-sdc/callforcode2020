@@ -20,10 +20,10 @@ public class LogisticsOperationInfo {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private String id;
+    private int id;
 
     @Column(name = "logistics_id")
-    private String logisticsId;
+    private int logisticsId;
 
     @Column(name = "sample_position")
     private String samplePosition;

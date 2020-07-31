@@ -20,9 +20,10 @@ import java.sql.Timestamp;
 public class CityGeneralInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CITY_INFO")
+    @SequenceGenerator(sequenceName = "SEQ_CITY_INFO", allocationSize = 1, name = "SEQ_CITY_INFO")
     @Column(name = "city_id")
-    private String cityId;
+    private int cityId;
 
     @Column(name = "city_name")
     private String cityName;
@@ -77,4 +78,7 @@ public class CityGeneralInfo {
 
     @Column(name = "update_user_id")
     private String updateUserId;
+
+    @Column(name = "is_avoid")
+    private String  isAvoid;
 }

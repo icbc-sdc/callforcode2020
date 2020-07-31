@@ -1,8 +1,9 @@
 package com.icbc.hzyjs.repository;
 
 import com.icbc.hzyjs.exception.BizException;
-import com.icbc.hzyjs.model.MaterialInfo;
-import com.icbc.hzyjs.model.UserInfo;
+import com.icbc.hzyjs.model.CityGeneralInfo;
+import com.icbc.hzyjs.model.LogisticsInfo;
+import com.icbc.hzyjs.model.SiteInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,5 @@ import java.util.List;
  */
 @Repository
 @Transactional(rollbackFor = {RuntimeException.class, Error.class, BizException.class})
-public interface MaterialInfoRepository extends JpaRepository<MaterialInfo, Integer>, JpaSpecificationExecutor<MaterialInfo> {
-    List<MaterialInfo> findByValidFlag(String validFlag);
+public interface CityGeneralInfoRepository extends JpaRepository<CityGeneralInfo, Integer>, JpaSpecificationExecutor<CityGeneralInfo> {
 }

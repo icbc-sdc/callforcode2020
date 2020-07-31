@@ -13,7 +13,8 @@ import java.sql.Timestamp;
 public class UserInfo implements Serializable{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER_INFO")
+    @SequenceGenerator(sequenceName = "SEQ_USER_INFO", allocationSize = 1, name = "SEQ_USER_INFO")
     @Column(name = "user_id")
     private int userId;
 
@@ -21,7 +22,7 @@ public class UserInfo implements Serializable{
     private String userName;
 
     @Column(name = "role_id")
-    private String roleId;
+    private int roleId;
 
     @Column(name = "role_name")
     private String roleName;
