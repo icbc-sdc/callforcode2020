@@ -1,6 +1,7 @@
 <template>
   <v-content>
     <v-container>
+    <div>The statistical date is July 29.</div>
       <v-row>
         <v-col cols="12">
           <TotalCases

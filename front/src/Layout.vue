@@ -37,15 +37,6 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
-          <v-list-item @click="nav('weather')" key="weather" link>
-            <v-list-item-icon>
-              <v-icon style="margin-right:20px;">mdi-weather-partly-snowy-rainy</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Weather</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider></v-divider>
           <!-- <v-list-item @click="nav('delivery')" key="delivery" link>
             <v-list-item-icon>
               <v-icon style="margin-right:20px;">mdi-google-fit</v-icon>
@@ -70,6 +61,15 @@
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Distribution</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-list-item @click="nav('weather')" key="weather" link>
+            <v-list-item-icon>
+              <v-icon style="margin-right:20px;">mdi-weather-partly-snowy-rainy</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Weather</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
@@ -214,9 +214,11 @@ export default {
     this.$vuetify.theme.dark = this.isDarkTheme;
     const datas = API.getCases();
     this.cases = {
-      total_confirmed: 1851313,
-      total_recovered: 422793,
-      total_death: 114144,
+      total_confirmed: 17029155,
+      total_recovered: 9948163,
+      total_death: 667011,
+      		
+
       data: datas
     };
   },

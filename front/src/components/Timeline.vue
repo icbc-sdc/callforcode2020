@@ -1,7 +1,7 @@
 <template>
   <v-card tile flat>
     <v-card-title>
-      <span class="title font-weight-light">Timeline (GMT)</span>
+      <span class="title font-weight-light">Timeline</span>
     </v-card-title>
     <v-data-table :headers="headers" :items="items" :items-per-page="10">
       <template v-slot:item.source="{ item }">
