@@ -6,7 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isDarkTheme: true
+    isDarkTheme: false
   },
   mutations: {
     TOGGLE_THEME(state) {

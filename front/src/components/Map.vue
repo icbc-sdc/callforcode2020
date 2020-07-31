@@ -141,7 +141,7 @@ export default {
     scale(d) {
       const min = 1;
       const factor = 5;
-      const zoomFactor = this.zoom / 30; // adjust divisor for best optics
+      const zoomFactor = this.zoom / 50; // adjust divisor for best optics
       // const zoomFactor = this.zoom >= 5 ? 1 : this.zoom / 10; // adjust divisor for best optics
       return Math.floor(Math.log(d) * factor * zoomFactor) + min;
     },
