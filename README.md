@@ -1,51 +1,22 @@
 # WARM WIND
 
-一、项目说明：
-warm wind项目聚焦于如何在传染疫情发生后，救援物资能最快速准确地发送给被救助对象，并确保在救援物资领取过程中人员被感染的概率降到最低。warm wind项目在IBM kubernetes部署的地址：http://184.173.5.45:30875/icbc/hzyjs/index.html
-
-二、功能模块说明
-
-warm wind项目主要有两部分组成：门户和算法模块。
-
-1.门户主要包含疫情情况、物资运输、物资分发、天气、用户管理、角色管理、站点管理、物资管理、运输管理、车辆管理等功能。
-
-疫情情况：该模块会实时同步每日COVID-19的最新疫情数据，包括各城市的新增确诊人数，康复人数，存储量确诊总人数。此外该模块也会实时显示各地针对抗疫的各项政策法规，帮助大家及时了解政府和相关组织的动态。
-
-运输线路：该模块可以根据物资运输的起点和终点，结合途中各地区的疫情情况，交通十分受限，给出一条最佳运输路线。
-
-物资分发：该模块基于时间序列算法对疫情发展趋势进行预测，选址需要考虑避开疫情发展和传播趋势大的区域，通过对疫情的预测选择疫情传播趋势较低的区域作为投放点
-
-天气：该模块会实时采集各地区近一段时间的天气情况并显示在前台界面中，为物资运输路线和物资发放地点选择提供参考。
-
-用户管理：对各站点管理人员，运输工作人员的人员基本信息进行管理
-
-角色管理：对各站点管理人员，运输工作人员的角色基本信息进行管理
-
-站点管理：对需进行物资存放，物资分发站点基本信息进行管理
-
-物资管理：对各组织机构捐赠，采购的各类物资具体信息进行管理
-
-物流管理：对每次物资运输过程中，涉及到的车辆、运输人员、运输了哪些物资、以及运输的起点终点进行管理
-
-车辆管理：对各个站点所属车辆、以及各车辆所匹配的司机，车辆的当前位置和运输状态进行管理
-
-2.算法模块主要是根据各地区的疫情情况，预测未来各疫情发展情况。在选择物资投放地址时需综合考虑避开疫情发展和传播趋势大的区域，尽量选择疫情控制好的区域作为投放点，另外路线规划也是需要考虑疫情的发展趋势人员分布情况，以及该地区疫情分布情况，通过算法LSTM算法选出最佳的物资投放点，确保在救援物资领取过程中人员被感染的概率降到最低。
-
-三、部署说明
-
-本项目基于springboot架构完成后台开发，基于vue组件完成前台开发，算法相关模块基于python实现，采用oracle数据库进行数据存储。可直接在ibm cloud的kubernetes面板中启动镜像运行服务。
-
-oracle数据库的镜像地址为：us.icr.io/warmwind/kevin:202007301502
-
-warm wind  web的镜像地址为：us.icr.io/warmwind-java/warmwind:202007311637
-
-
-
-
-
-
-
-
-
-
-
+A. Project Description:
+The WarmWind team has been working on a method to deliver supplies to those in need in a quick and efficient manner, while also minimizing the risk of collection personnel being infected. WarmWind's deployment address on IBM Kubernetes:
+B. Function Module Description
+The WarmWind project primarily consists of the Portal and Algorithm modules.
+1. The Portal module includes functions such as pandemic situation, supply transportation, supply distribution, weather, user management, role management, site management, supply management, transportation management, and vehicle management.
+Pandemic Situation: this module synchronizes the latest daily COVID-19 pandemic data in real-time. This data includes newly diagnosed cases by city, recoveries, and total diagnoses. The module will also display anti-pandemic government policy and regulation information in real time to help keep users abreast of the changing ever-changing landscape.
+Transportation Route: this module provides an optimal route for the transportation of supplies based on the start location, end location, pandemic situation of areas on the route, and traffic situation. 
+Supply Distribution: by predicting pandemic trends with a time series algorithm, this module selects areas with low projected spread as points of delivery, ensuring supply and route safety throughout the pandemic.
+Weather: this module collects real-time weather data from various locations and displays them in a frontend interface to provide a reference for the selection of supply distribution routes and locations.
+User Management: this module can be used to manage the basic user data of site managers and transportation personnel.
+Role Management: this module can be used to manage the basic role data of site managers and transportation personnel.
+Site Management: this module can be used to manage the basic data of supply storage and distribution sites.
+Supply Management: this module can be used to manage the basic data of donated and purchased supplies by organization.
+Logistics Management: this module can be used to manage vehicles, transport personnel, transported supplies, and the start and end locations of each transportation process.
+Vehicle Management: this module can be used to manage vehicles by site, vehicle drivers, and the current location and transportation status of each vehicle.
+2. The Algorithm module primarily predicts future pandemic trends in accordance with the specific situation of each region. It is important to avoid areas with high pandemic spread projections in route and delivery location selection. Taking into account the regional pandemic situation, an optimal delivery location is calculated through an LSTM algorithm to reduce infection risk to personnel and ensure delivery of supplies.
+C. Deployment Instructions
+This project uses Springboot architecture for backend development, Vue.js for frontend development, Python for algorithm module implementation, and the Oracle Database for data storage. The service can be mirrored through the IBM Cloud Kubernetes Panel.
+Oracle database mirror address: us.icr.io/warmwind/kevin:202007301502
+WarmWind Web mirror address: us.icr.io/warmwind-java/warmwind:202007311637
