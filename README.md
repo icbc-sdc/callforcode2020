@@ -6,7 +6,7 @@ The WarmWind team has been working on a method to deliver supplies to those in n
 B. Function Module Description
 The WarmWind project primarily consists of the Portal and Algorithm modules.
 
-![https://github.com/icbc-sdc/callforcode2020/blob/master/img/architecture.PNG]()
+![https://github.com/icbc-sdc/callforcode2020/blob/master/img/architecture.PNG](README.assets/architecture.PNG)
 
 1. The Portal module includes functions such as pandemic situation, supply transportation, supply distribution, weather, user management, role management, site management, supply management, transportation management, and vehicle management.
     Pandemic Situation: this module synchronizes the latest daily COVID-19 pandemic data (https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports) in real-time. This data includes newly diagnosed cases by city, recoveries, and total diagnoses. The module will also display anti-pandemic government policy and regulation information in real time to help keep users abreast of the changing ever-changing landscape.
