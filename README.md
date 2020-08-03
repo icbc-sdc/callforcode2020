@@ -44,5 +44,7 @@ The WarmWind project primarily consists of the Portal and Algorithm modules.
 
 C. Deployment Instructions
   This project uses Springboot architecture for backend development, Vue.js for frontend development, Python for algorithm module implementation, and the Oracle Database for data storage. The service can be mirrored through the IBM Cloud Kubernetes Panel.
+
   Oracle database mirror address: us.icr.io/warmwind/kevin:202007301502
+
   WarmWind Web mirror address: us.icr.io/warmwind-java/warmwind:202007311637
